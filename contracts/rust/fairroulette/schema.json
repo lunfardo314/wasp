@@ -1,5 +1,6 @@
 {
   "name": "fairroulette",
+  "description": "blaegkakjhf",
   "types": {
     "Bet": {
       "amount": "Int",

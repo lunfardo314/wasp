@@ -7,9 +7,9 @@ import (
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/solo"
 	"github.com/iotaledger/wasp/packages/testutil"
+	"github.com/iotaledger/wasp/packages/util"
 	"github.com/iotaledger/wasp/packages/vm/core/root"
 	"github.com/iotaledger/wasp/packages/vm/core/testcore/sandbox_tests/test_sandbox_sc"
-	"github.com/iotaledger/wasp/packages/vm/wasmhost"
 	"github.com/stretchr/testify/require"
 	"testing"
 )
@@ -28,8 +28,8 @@ const (
 	PARAM_RECIPIENT  = "r"
 )
 
-var WasmFileTestcore = wasmhost.WasmPath("testcore_bg.wasm")
-var WasmFileErc20 = wasmhost.WasmPath("erc20_bg.wasm", "erc20/pkg")
+var WasmFileTestcore = util.LocateFile("testcore_bg.wasm", "testcore/pkg")
+var WasmFileErc20 = util.LocateFile("erc20_bg.wasm", "erc20/pkg")
 
 var SandboxSCName = "test_sandbox"
 

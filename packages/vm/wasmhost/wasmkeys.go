@@ -22,28 +22,27 @@ const (
 	KeyIncoming        = int32(-19)
 	KeyLength          = int32(-20)
 	KeyLog             = int32(-21)
-	KeyLogs            = int32(-22)
-	KeyMaps            = int32(-23)
-	KeyName            = int32(-24)
-	KeyPanic           = int32(-25)
-	KeyParams          = int32(-26)
-	KeyPost            = int32(-27)
-	KeyRandom          = int32(-28)
-	KeyResults         = int32(-29)
-	KeyReturn          = int32(-30)
-	KeyState           = int32(-31)
-	KeyTimestamp       = int32(-32)
-	KeyTrace           = int32(-33)
-	KeyTransfers       = int32(-34)
-	KeyUtility         = int32(-35)
-	KeyValid           = int32(-36)
-	KeyValidBls        = int32(-37)
-	KeyValidEd25519    = int32(-38)
+	KeyMaps            = int32(-22)
+	KeyName            = int32(-23)
+	KeyPanic           = int32(-24)
+	KeyParams          = int32(-25)
+	KeyPost            = int32(-26)
+	KeyRandom          = int32(-27)
+	KeyResults         = int32(-28)
+	KeyReturn          = int32(-29)
+	KeyState           = int32(-30)
+	KeyTimestamp       = int32(-31)
+	KeyTrace           = int32(-32)
+	KeyTransfers       = int32(-33)
+	KeyUtility         = int32(-34)
+	KeyValid           = int32(-35)
+	KeyValidBls        = int32(-36)
+	KeyValidEd25519    = int32(-37)
 
 	// Treat this one like a version number. When anything changes
 	// to the keys give this one a different value and make sure
 	// the client side in wasplib is updated accordingly
-	KeyZzzzzzz = int32(-97)
+	KeyZzzzzzz = int32(-98)
 )
 
 var keyMap = map[string]int32{
@@ -68,7 +67,6 @@ var keyMap = map[string]int32{
 	"incoming":        KeyIncoming,
 	"length":          KeyLength,
 	"log":             KeyLog,
-	"logs":            KeyLogs,
 	"maps":            KeyMaps,
 	"name":            KeyName,
 	"panic":           KeyPanic,
