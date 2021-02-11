@@ -82,9 +82,9 @@ type ScUtility struct {
 }
 
 func (ctx ScUtility) AggregateBLSSignatures(pubKeys [][]byte, sigs [][]byte) ([]byte, []byte) {
-	encode :=  NewBytesEncoder()
+	encode := NewBytesEncoder()
 	encode.Int(int64(len(pubKeys)))
-	for _,pubKey := range pubKeys {
+	for _, pubKey := range pubKeys {
 		encode.Bytes(pubKey)
 	}
 	encode.Int(int64(len(sigs)))
