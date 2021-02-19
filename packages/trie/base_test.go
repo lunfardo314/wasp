@@ -40,6 +40,7 @@ func TestDataIntegrity(t *testing.T) {
 	t.Run("should get a different hash if a new key-value pair was added or updated", func(t *testing.T) {
 		trie := NewTrie()
 		hash0 := trie.Hash()
+		t.Logf("hash of empty trie: %s", hash0)
 		key1 := kv.Key([]byte{1, 2, 3, 4})
 		key2 := kv.Key([]byte{1, 2})
 
