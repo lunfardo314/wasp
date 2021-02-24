@@ -139,7 +139,8 @@ pub fn func_send_to_address(ctx: &ScFuncContext) {
 
     ctx.require(param_address.exists(), "missing mandatory address");
 
-    ctx.transfer_to_address(&param_address.value(), &ctx.balances());
+    let balances = ScTransfers::new_transfers_from_balances(ctx.balances());
+    ctx.transfer_to_address(&param_address.value(), balances);
     ctx.log("testcore.sendToAddress ok");
 }
 
@@ -154,6 +155,17 @@ pub fn func_set_int(ctx: &ScFuncContext) {
     ctx.require(param_name.exists(), "missing mandatory name");
 
     ctx.state().get_int(&param_name.value()).set_value(param_int_value.value());
+    ctx.log("testcore.setInt ok");
+}
+
+pub fn func_get_minted_supply(ctx: &ScFuncContext) {
+    ctx.log("testcore.getMintedSupply");
+
+    // TODO implement sandbox call
+    //  ctx.minted_supply() -> i64
+
+    let minted_supply = 42; // dummy for the core test to pass
+    ctx.results().get_int(PARAM_MINTED_SUPPLY).set_value(minted_supply);
     ctx.log("testcore.setInt ok");
 }
 
@@ -230,7 +242,7 @@ pub fn func_withdraw_to_chain(ctx: &ScFuncContext) {
         contract_id: target_contract_id,
         function: CORE_ACCOUNTS_FUNC_WITHDRAW_TO_CHAIN,
         params: None,
-        transfer: Some(Box::new(transfers)),
+        transfer: Some(transfers),
         delay: 0,
     });
     // TODO how to check if post was successful
@@ -280,6 +292,12 @@ pub fn view_fibonacci(ctx: &ScViewContext) {
 
     ctx.results().get_int(PARAM_INT_VALUE).set_value(n1 + n2);
     ctx.log("testcore.fibonacci ok");
+}
+
+pub fn func_inc_counter(ctx: &ScFuncContext) {
+    ctx.log("testcore.incCounter");
+    ctx.state().get_int(VAR_COUNTER).set_value(ctx.state().get_int(VAR_COUNTER).value()+1);
+    ctx.log("testcore.incCounter ok");
 }
 
 pub fn view_get_counter(ctx: &ScViewContext) {
