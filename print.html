@@ -1,0 +1,1157 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>ISCP Documentation</title>
+                <meta name="robots" content="noindex" />
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the UTXO Ledger</a></li><li class="chapter-item expanded "><a href="tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain; Core contracts</a></li><li class="chapter-item expanded "><a href="tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running a Rust smart contract</a></li><li class="chapter-item expanded "><a href="tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contracts. Sending a request</a></li><li class="chapter-item expanded "><a href="tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Invoking smart contracts. Calling a view</a></li><li class="chapter-item expanded "><a href="tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Accounts: deposit and withdraw tokens</a></li><li class="chapter-item expanded "><a href="tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending tokens from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="setup_wasp.html"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">ISCP Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                            </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="welcome-to-the-iscp-documentation"><a class="header" href="#welcome-to-the-iscp-documentation">Welcome to the ISCP Documentation</a></h1>
+<p>{{ #include ../README.md:4: }}</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploring-iota-smart-contracts"><a class="header" href="#exploring-iota-smart-contracts">Exploring IOTA Smart Contracts</a></h1>
+<h2 id="purpose"><a class="header" href="#purpose">Purpose</a></h2>
+<p>This document is an introductory tutorial of the IOTA Smart Contract Platform
+(ISCP) for developers.</p>
+<p>The level of this document is technical. Its target audience is software
+engineers who want to understand the ISCP, and the direction it is taking, in
+order to develop their own dApps and/or contribute to the development of the
+ISCP and Wasp nodes.</p>
+<p>The approach in this tutorial is to introduce main concepts through writing
+unit tests for several example smart contracts. We use a Go testing package 
+codenamed <a href="tutorial/../../packages/solo/readme.html"><em>Solo</em></a> in all examples of the
+tutorial.</p>
+<p>Knowledge of Go programming and basic knowledge of Rust programming are 
+prerequisites.</p>
+<h2 id="chapters"><a class="header" href="#chapters">Chapters</a></h2>
+<ul>
+<li><a href="tutorial/01.html">The <em>Solo</em> package</a></li>
+<li><a href="tutorial/01.html#first-example">First example</a></li>
+<li><a href="tutorial/02.html#tokens-and-the-utxo-ledger">Tokens and the UTXO Ledger</a></li>
+<li><a href="tutorial/03.html#creating-a-chain-core-contracts">Creating a chain. Core contracts</a></li>
+<li><a href="tutorial/03.html#writing-and-compiling-first-rust-smart-contract">Writing and compiling first Rust smart contract</a></li>
+<li><a href="tutorial/04.html#deploying-and-running-a-rust-smart-contract">Deploying and running a Rust smart contract</a></li>
+<li><a href="tutorial/05.html#structure-of-the-smart-contract">Structure of the smart contract</a>
+<ul>
+<li><a href="tutorial/05.html#state">State</a></li>
+<li><a href="tutorial/05.html#entry-points">Entry points</a></li>
+</ul>
+</li>
+<li><a href="tutorial/05.html#panic-exception-handling">Panic. Exception handling</a></li>
+<li><a href="tutorial/06.html">Invoking a smart contract</a>
+<ul>
+<li><a href="tutorial/06.html">Sending a request</a></li>
+<li><a href="tutorial/07.html">Calling a view</a></li>
+</ul>
+</li>
+<li><a href="tutorial/08.html">Sending and receiving tokens by example</a>
+<ul>
+<li><a href="tutorial/08.html#sending-and-receiving-tokens-with-the-address">Sending and receiving tokens with the address</a></li>
+<li><a href="tutorial/09.html#sending-tokens-to-the-smart-contract">Sending tokens to the smart contract</a></li>
+<li><a href="tutorial/10.html#return-of-tokens-in-case-of-failure">Return of tokens in case of failure</a></li>
+<li><a href="tutorial/11.html">Sending tokens from smart contract to address</a> </li>
+</ul>
+</li>
+<li><a href="tutorial/iscp_accounts.html">ISCP on-chain accounts. Controlling token balances</a></li>
+</ul>
+<h2 id="annexes"><a class="header" href="#annexes">Annexes</a></h2>
+<ul>
+<li><a href="tutorial/root.html"><code>root</code> contract</a></li>
+<li><a href="tutorial/_default.html"><code>_default</code> contract</a></li>
+<li><a href="tutorial/accounts.html"><code>accounts</code> contract</a></li>
+<li><a href="tutorial/blob.html"><code>blob</code> contract</a></li>
+<li><a href="tutorial/blocklog.html"><code>blocklog</code> contract</a></li>
+<li><a href="tutorial/eventlog.html"><code>eventlog</code> contract</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploring-iota-smart-contracts-1"><a class="header" href="#exploring-iota-smart-contracts-1">Exploring IOTA Smart Contracts</a></h1>
+<h2 id="the-solo-package"><a class="header" href="#the-solo-package">The <em>Solo</em> package</a></h2>
+<p>Solo is a Go package to write tests for IOTA smart contracts. It allows the
+deployment of ISCP chains and smart contracts. It also provides a toolkit for
+interaction with smart contracts, for manipulation of tokens and ledger accounts
+in an environment that is almost identical to the distributed multi-chain
+environment of the ISCP.</p>
+<p>The <code>Solo</code> package and its <code>GoDoc</code> link 
+<a href="tutorial/../../packages/solo/readme.html">can be found here</a>. The GoDocs provides a
+reference to all Solo calls which can be used in tests (not necessarily covered
+in this tutorial).</p>
+<p>Smart contracts are notoriously isolated from the outside world. The effect of
+the user interaction with a smart contract is normally only observed in its
+state change. The approach in this tutorial is to explain all main concepts of
+ISCP development through loading smart contracts into the <em>Solo</em> tests, invoking
+its functions and examining state changes.</p>
+<p>ISCP is currently in active development, so things change and are less than
+perfect. In the current stage the ISCP software is experimental. We expect
+feedback from the community about hands-on experience. We also expect
+contribution to the development of ISCP itself, including Rust/Wasm development
+environment or, possibly, alternative VM implementations.</p>
+<p><em>Solo</em> is not a toy environment. It allows developers to develop and test real
+smart contracts and entire inter-chain protocols before deploying them on the
+distributed network.</p>
+<p>Please follow <a href="tutorial/install.html">the link</a> for installation instructions.</p>
+<h2 id="first-example"><a class="header" href="#first-example">First example</a></h2>
+<p>The following is an example of a <em>Solo</em> test. It deploys a new chain and invokes
+a function in the <code>root</code> contract.</p>
+<p>The <code>root</code> contract always exists on any chain. So for this example there is no
+need to deploy any new contract. The test log to the testing output the main
+parameters of the chain, lists names and IDs of all four core contracts.</p>
+<pre><code class="language-go">func TestTutorial1(t *testing.T) {
+    env := solo.New(t, false, false)
+    chain := env.NewChain(nil, &quot;ex1&quot;)
+    
+    chainID, chainOwnerID, coreContracts := chain.GetInfo()                      // calls view root::GetChainInfo
+    require.EqualValues(t, len(core.AllCoreContractsByHash), len(coreContracts)) // all core contracts deployed by default
+    
+    t.Logf(&quot;chain ID: %s&quot;, chainID.String())
+    t.Logf(&quot;chain owner ID: %s&quot;, chainOwnerID.String())
+    for hname, rec := range coreContracts {
+        t.Logf(&quot;    Core contract '%s': %s&quot;, rec.Name, coretypes.NewAgentID(chainID.AsAddress(), hname))
+    }
+}
+</code></pre>
+<p>The output of the test will be something like this:</p>
+<pre><code>=== RUN   TestTutorial1
+21:46.217	INFO	TestTutorial1	solo/solo.go:140	Solo environment created with initial logical time 2021-04-27 12:21:46.2163941 -0700 PDT m=+0.004574501
+21:46.217	INFO	TestTutorial1	solo/solo.go:187	deploying new chain 'ex1'. ID: $/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU, state controller address: 16e5mTcM9ufZQP37Ki55NhDLacLpTToieKkeqR5my8cu4
+21:46.217	INFO	TestTutorial1	solo/solo.go:189	     chain '$/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU'. state controller address: 16e5mTcM9ufZQP37Ki55NhDLacLpTToieKkeqR5my8cu4
+21:46.217	INFO	TestTutorial1	solo/solo.go:190	     chain '$/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU'. originator address: 1ECjLLrXYpDKTgtFfft4rFUsd7qkaXQw1Worm4oESzKVi
+21:46.218	INFO	TestTutorial1.ex1	vmcontext/runreq.go:311	eventlog -&gt; '[req] [0]Hy2CGQEi6YHLE3acQoaUe9t2Ej85txq3gG35TCNDas9f: Ok'
+21:46.218	INFO	TestTutorial1	solo/clock.go:35	AdvanceClockBy: logical clock advanced by 2ns
+21:46.218	INFO	TestTutorial1.ex1.m	mempool/mempool.go:119	OUT MEMPOOL [0]Hy2CGQEi6YHLE3acQoaUe9t2Ej85txq3gG35TCNDas9f
+21:46.218	INFO	TestTutorial1.ex1	solo/run.go:86	state transition #0 --&gt; #1. Requests in the block: 1. Outputs: 1
+21:46.218	INFO	TestTutorial1	solo/clock.go:44	ClockStep: logical clock advanced by 1ms
+21:46.218	INFO	TestTutorial1.ex1	solo/solo.go:245	chain 'ex1' deployed. Chain ID: $/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU
+21:46.218	INFO	TestTutorial1.ex1	solo/req.go:243	callView: root::getChainInfo
+    tutorial_test.go:24: chain ID: $/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU
+    tutorial_test.go:25: chain owner ID: A/1ECjLLrXYpDKTgtFfft4rFUsd7qkaXQw1Worm4oESzKVi::00000000
+    tutorial_test.go:27:     Core contract '_default': A/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU::00000000
+    tutorial_test.go:27:     Core contract 'accounts': A/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU::3c4b5e02
+    tutorial_test.go:27:     Core contract 'blob':     A/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU::fd91bc63
+    tutorial_test.go:27:     Core contract 'blocklog': A/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU::f538ef2b
+    tutorial_test.go:27:     Core contract 'eventlog': A/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU::661aa7d8
+    tutorial_test.go:27:     Core contract 'root':     A/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU::cebf5908
+--- PASS: TestTutorial1 (0.00s)
+</code></pre>
+<p>The core contracts listed in the log (<code>_default</code>, <code>accounts</code>, <code>blob</code>, <code>blocklog</code>
+, <code>eventlog</code>, <code>root</code>) are automatically deployed on each new chain. You can see
+them listed in the test log together with their <em>contract IDs</em>.</p>
+<p>The output fragment in the log <code>state transition #0 --&gt; #1</code> means the state of
+the chain has changed from block index 0 (the origin index of the empty state)
+to block index 1. The state #0 is the empty origin state, the #1 always contains
+all core smart contracts deployed on the chain as well as other variables of
+chain, such as <em>chainID</em> and <em>chain owner ID</em>.</p>
+<p>The <em>chain ID</em> and <em>chain owner ID</em> are respectively ID of the deployed
+chain <code>$/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU</code> and the address (in the
+form of <em>agent ID</em>) from which the chain was deployed:
+<code>A/1ECjLLrXYpDKTgtFfft4rFUsd7qkaXQw1Worm4oESzKVi::00000000</code> (the prefixes <code>$/</code>
+and <code>A/</code> indicate that what follow are a chain ID and an agent ID, respectively)
+.</p>
+<p>Next: <a href="tutorial/02.html">Tokens and the UTXO Ledger</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploring-iota-smart-contracts-2"><a class="header" href="#exploring-iota-smart-contracts-2">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="tutorial/01.html">The Solo package</a></p>
+<h2 id="tokens-and-the-utxo-ledger"><a class="header" href="#tokens-and-the-utxo-ledger">Tokens and the UTXO Ledger</a></h2>
+<p>The Pollen release of the Goshimmer node implements the IOTA <em>UTXO Ledger</em>, a
+distributed ledger of tokens. We won't go into the details of the UTXO Ledger.
+The introduction of it can be found <a href="tutorial/../intro/utxo.html">here</a>. We only have to
+know that the UTXO Ledger contains balances of colored tokens locked in 
+addresses, like this:</p>
+<pre><code>Address: Yk85765qdrwheQ4udj6RihxtPxudTSWF9qYe4NsAfp6K
+   IOTA: 1000
+   Red: 15
+   Green: 200
+</code></pre>
+<p>where <code>IOTA</code> is the color code of IOTA tokens and <code>Red</code> and <code>Green</code> are other
+color codes
+(<a href="https://github.com/iotaledger/goshimmer/blob/87d0cbb172c1b3432b1dddcbabacd76cad66f1f3/dapps/valuetransfers/packages/balance/color.go#L10">color codes are 32-byte hashes, as defined by Goshimmer</a>).
+Tokens can only be moved on the UTXO Ledger by unlocking the corresponding
+address with its private key.</p>
+<p>(In this tutorial we will use <code>private key</code>, <code>signature scheme</code> and <code>wallet</code> as
+synonyms).</p>
+<p>The <code>Solo</code> environment implements a detailed in-memory UTXO Ledger. For example,
+you can only move tokens in the <em>Solo</em> environment by creating and submitting
+valid and signed transactions. You can also create new wallets on the UTXO 
+Ledger and request iotas from the faucet to your wallet.</p>
+<p>The following code shows how to do it:</p>
+<pre><code class="language-go">func TestTutorial2(t *testing.T) {
+    env := solo.New(t, false, false)
+    _, userAddress := env.NewKeyPairWithFunds() // create new wallet with solo.Saldo iotas
+    t.Logf(&quot;Address of the userWallet is: %s&quot;, userAddress)
+    numIotas := env.GetAddressBalance(userAddress, ledgerstate.ColorIOTA) // how many iotas the address contains
+    t.Logf(&quot;balance of the userWallet is: %d iota&quot;, numIotas)
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo) // assert the address has solo.Saldo iotas
+}
+</code></pre>
+<p>The output of the test:</p>
+<pre><code>=== RUN   TestTutorial2
+43:03.822	INFO	TestTutorial2	solo/solo.go:140	Solo environment created with initial logical time 2021-04-27 12:43:03.8219457 -0700 PDT m=+0.003645301
+    tutorial_test.go:34: Address of the userWallet is: ED25519Address {
+            Digest: 0xfcf57c46f1dfd678b0a9b37f723a090820c358edaf349b7b97b1ce10d83131c8
+            Base58: &quot;1J2SrD5iV4Lt94ABSiGeegyg5L1CoCyT6i6WFv3Zxg6xP&quot;
+        }
+    tutorial_test.go:36: balance of the userWallet is: 1000000 iota
+--- PASS: TestTutorial2 (0.00s)
+</code></pre>
+<p>The UTXO Ledger in <em>Solo</em> &quot;lives&quot; in the global environment <code>env</code> of the test.
+It is shared among all chains, deployed on that environment. It serves as a
+medium for transactions between smart contracts on different chains. This way
+<em>Solo</em> makes it possible to test transacting between chains.</p>
+<p>Note that in the test above we didn’t deploy any chains: the UTXO Ledger exists
+independent of any chains.</p>
+<p>Next: <a href="tutorial/03.html">Creating a chain; Core contracts</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploring-iota-smart-contracts-3"><a class="header" href="#exploring-iota-smart-contracts-3">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="tutorial/02.html">Tokens and the UTXO Ledger</a></p>
+<h2 id="creating-a-chain-core-contracts"><a class="header" href="#creating-a-chain-core-contracts">Creating a chain; Core contracts</a></h2>
+<p>In a test we can deploy one or several chains, deploy smart contracts on them,
+and invoke them.</p>
+<p>In the previous example <code>TestTutorial1</code>, the statement
+<code>chain := env.NewChain(nil, &quot;ex1&quot;)</code> creates and deploys a new chain <code>ex1</code> in the
+environment of the test. Several chains may be deployed in the test.</p>
+<p>Deploying a chain automatically means deployment of all core smart contracts on
+it. The core contracts are responsible for the vital functions of the chain and
+provide infrastructure for all other smart contracts:</p>
+<ul>
+<li>
+<p><a href="tutorial/root.html">root</a>. Responsible for the initialization of the chain, maintains
+the global parameters, and the registry of deployed contracts. It also handles
+fees and performs other functions.</p>
+</li>
+<li>
+<p><a href="tutorial/_default.html">_default</a>. Any request that cannot be handled by any of the
+other deployed contracts ends up here.</p>
+</li>
+<li>
+<p><a href="tutorial/accounts.html">accounts</a>. Responsible for the on-chain ledger of accounts. The
+on-chain accounts contain colored tokens, which are controlled by smart
+contracts and addresses on the UTXO Ledger.</p>
+</li>
+<li>
+<p><a href="tutorial/blob.html">blob</a>. Responsible for the immutable registry of binary objects of
+arbitrary size. One blob is a collection of named binary chunks of data. For
+example, a blob can be used to store a collections of <em>wasm</em> binaries, needed
+to deploy <em>WebAssembly</em> smart contracts. Each blob in the registry is 
+referenced by its hash which is deterministically calculated from its data.</p>
+</li>
+<li>
+<p><a href="tutorial/blocklog.html">blocklog</a>. Keeps track of the blocks of requests that were 
+processed by the chain.</p>
+</li>
+<li>
+<p><a href="tutorial/eventlog.html">eventlog</a>. Keeps an immutable log of events in the chain. Each
+event is a message, a string, emitted by smart contracts with the <code>Event()</code>
+sandbox call. The events are published on the Wasp node publisher for
+consumption by outside subscribers. Each event is also immutably stored in
+the <code>event log</code> on the chain with a timestamp, and the id of the smart
+contract which emitted the event. Important events such as the deployment of a
+new smart contract or processing of a request are emitted as events by the
+chain's core.</p>
+</li>
+</ul>
+<h2 id="writing-and-compiling-first-rust-smart-contract"><a class="header" href="#writing-and-compiling-first-rust-smart-contract">Writing and compiling first Rust smart contract</a></h2>
+<p>In this section we will create a new smart contract. We will write its code in
+Rust, and then will use the <code>wasplib</code> <a href="tutorial/../../contracts/rust/wasmlib">library</a>
+and <code>wasm-pack</code> to compile it into a WebAssembly (<em>wasm</em>) binary.</p>
+<p>Note that this tutorial is not a tutorial of the ISCP smart contract development
+environment: for that we will provide other tutorials. The only goal of these
+examples is an introduction to fundamental principles of ISCP smart contracts.</p>
+<p>We assume you already have Rust and <code>wasm-pack</code>
+<a href="https://rustwasm.github.io/wasm-pack/installer/">installed</a>.</p>
+<p>We will be using the examples from the <code>wasp</code> repository located in the
+<a href="tutorial/example-tutorial">articles/tutorial/example-tutorial</a> directory.</p>
+<p>The <code>example-tutorial</code> smart contract is a simple smart contract which stores a
+string in its state upon request and allows to retrieve the stored string by
+calling a view. The smart contract also implements an entry point which allows
+the creator of the smart contract instance to withdraw all iotas contained in
+the smart contract's account on the chain.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use wasmlib::*;
+
+const PARAM_STRING: &amp;str = &quot;paramString&quot;;
+const VAR_STRING: &amp;str = &quot;storedString&quot;;
+
+#[no_mangle]
+fn on_load() {
+    // declare entry points of the smart contract
+    let exports = ScExports::new();
+    exports.add_func(&quot;storeString&quot;, store_string);
+    exports.add_view(&quot;getString&quot;, get_string);
+    exports.add_func(&quot;withdrawIota&quot;, withdraw_iota);
+}
+
+// storeString entry point stores a string provided as parameters
+// in the state as a value of the key 'storedString'
+// panics if parameter is not provided
+fn store_string(ctx: &amp;ScFuncContext) {
+    // take parameter paramString
+    let par = ctx.params().get_string(PARAM_STRING);
+    // require parameter exists
+    ctx.require(par.exists(), &quot;string parameter not found&quot;);
+
+    // store the string in &quot;storedString&quot; variable
+    ctx.state().get_string(VAR_STRING).set_value(&amp;par.value());
+    // log the text
+    let msg = &quot;Message stored: &quot;.to_string() + &amp;par.value();
+    ctx.log(&amp;msg);
+}
+
+// getString view returns the string value of the key 'storedString'
+// The call return result as a key/value dictionary.
+// the returned value in the result is under key 'paramString'
+fn get_string(ctx: &amp;ScViewContext) {
+    // take the stored string
+    let s = ctx.state().get_string(VAR_STRING).value();
+    // return the string value in the result dictionary
+    ctx.results().get_string(PARAM_STRING).set_value(&amp;s);
+}
+
+// withdraw_iota sends all iotas contained in the contract's account
+// to the caller's L1 address.
+// Panics of the caller is not an address
+// Panics if the address is not the creator of the contract is the caller
+// The caller will be address only if request is sent from the wallet on the L1, not a smart contract
+fn withdraw_iota(ctx: &amp;ScFuncContext) {
+    let creator = ctx.contract_creator();
+    let caller = ctx.caller();
+
+    ctx.require(creator == caller, &quot;not authorised&quot;);
+    ctx.require(caller.is_address(), &quot;caller must be an address&quot;);
+
+    let bal = ctx.balances().balance(&amp;ScColor::IOTA);
+    if bal &gt; 0 {
+        ctx.transfer_to_address(&amp;caller.address(), ScTransfers::new(&amp;ScColor::IOTA, bal))
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Running the <code>wasm-pack build</code> command will produce something like this:</p>
+<pre><code>[INFO]: Checking for the Wasm target...
+[INFO]: Compiling to Wasm...
+   Compiling wasmlib v0.1.0 (...\github.com\iotaledger\wasp\contracts\rust\wasmlib)
+   Compiling example_tutorial v0.1.0 (...\github.com\iotaledger\wasp\docs\tutorial\example-tutorial)
+    Finished release [optimized] target(s) in 2.42s
+[INFO]: Installing wasm-bindgen...
+[INFO]: Optimizing wasm binaries with `wasm-opt`...
+[INFO]: :-) Done in 3.56s
+[INFO]: :-) Your wasm pkg is ready to publish at ...\github.com\iotaledger\wasp\docs\tutorial\example-tutorial\pkg.
+</code></pre>
+<p>The 30KB file <code>example_tutorial_bg.wasm</code> is the binary of the smart contract. We
+will be using it in further examples. The file contains everything needed to
+deploy the smart contract on a chain run by the Wasp network.</p>
+<p>Next: <a href="tutorial/04.html">Deploying and running a Rust smart contract</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploring-iota-smart-contracts-4"><a class="header" href="#exploring-iota-smart-contracts-4">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="tutorial/03.html">Creating a chain; Core contracts</a></p>
+<h2 id="deploying-and-running-a-rust-smart-contract"><a class="header" href="#deploying-and-running-a-rust-smart-contract">Deploying and running a Rust smart contract</a></h2>
+<p>The following <em>Solo</em> test deploys a <em>wasm</em> contract on the chain. Then it
+invokes it: first it posts a request <code>storeString</code> to set the string value, then
+it calls the view <code>getString</code> to retrieve the value and checks it.
+`</p>
+<pre><code class="language-go">func TestTutorial3(t *testing.T) {
+    env := solo.New(t, false, false)
+    chain := env.NewChain(nil, &quot;ex3&quot;)
+    // deploy the contract on chain
+    err := chain.DeployWasmContract(nil, &quot;example1&quot;, &quot;example_tutorial_bg.wasm&quot;)
+    require.NoError(t, err)
+    
+    // call contract to store string
+    req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;, &quot;paramString&quot;, &quot;Hello, world!&quot;)
+    req.WithIotas(1)
+    _, err = chain.PostRequestSync(req, nil)
+    require.NoError(t, err)
+    
+    // call the contract to extract value of the 'paramString' and check
+    res, err := chain.CallView(&quot;example1&quot;, &quot;getString&quot;)
+    require.NoError(t, err)
+    returnedString, exists, err := codec.DecodeString(res.MustGet(&quot;paramString&quot;))
+    require.NoError(t, err)
+    require.True(t, exists)
+    require.EqualValues(t, &quot;Hello, world!&quot;, returnedString)
+}
+</code></pre>
+<p>Running the test will produce the following output:</p>
+<pre><code>=== RUN   TestTutorial3
+54:43.773	INFO	TestTutorial3	solo/solo.go:140	Solo environment created with initial logical time 2021-04-27 14:54:43.7720297 -0700 PDT m=+0.004614101
+54:43.773	INFO	TestTutorial3	solo/solo.go:187	deploying new chain 'ex3'. ID: $/p8vApchzrMUnr6ZwvSdZW9TJB1rq3VRzTQhoQdUbcgaD, state controller address: 16U8Gmzq8D3rPNqbiakUNRVhJcmh6CcfVEJJXq9GnM9LY
+54:43.773	INFO	TestTutorial3	solo/solo.go:189	     chain '$/p8vApchzrMUnr6ZwvSdZW9TJB1rq3VRzTQhoQdUbcgaD'. state controller address: 16U8Gmzq8D3rPNqbiakUNRVhJcmh6CcfVEJJXq9GnM9LY
+54:43.773	INFO	TestTutorial3	solo/solo.go:190	     chain '$/p8vApchzrMUnr6ZwvSdZW9TJB1rq3VRzTQhoQdUbcgaD'. originator address: 13z1b6AjEGokoJHh88Zw92cXDZgt956wgVTG6NJsHrHp4
+54:43.774	INFO	TestTutorial3.ex3	vmcontext/runreq.go:311	eventlog -&gt; '[req] [0]9ohi6JLiT83YAojtubs734vEAQHibKvAxc1ouXXEgzrs: Ok'
+54:43.774	INFO	TestTutorial3	solo/clock.go:35	AdvanceClockBy: logical clock advanced by 2ns
+54:43.774	INFO	TestTutorial3.ex3.m	mempool/mempool.go:119	OUT MEMPOOL [0]9ohi6JLiT83YAojtubs734vEAQHibKvAxc1ouXXEgzrs
+54:43.774	INFO	TestTutorial3.ex3	solo/run.go:86	state transition #0 --&gt; #1. Requests in the block: 1. Outputs: 1
+54:43.774	INFO	TestTutorial3	solo/clock.go:44	ClockStep: logical clock advanced by 1ms
+54:43.774	INFO	TestTutorial3.ex3	solo/solo.go:245	chain 'ex3' deployed. Chain ID: $/p8vApchzrMUnr6ZwvSdZW9TJB1rq3VRzTQhoQdUbcgaD
+54:43.775	INFO	TestTutorial3.ex3	solo/req.go:243	callView: blob::getBlobInfo
+54:43.775	INFO	TestTutorial3	solo/solofun.go:78	Solo::PutBlobDataIntoRegistry: len = 28924, hash = 28ELxzKLXvQMyFTK1DEXfW4R1mgMuTZeDDLycXMMKpxk
+54:43.775	INFO	TestTutorial3.ex3	solo/req.go:243	callView: root::getFeeInfo
+54:43.775	INFO	TestTutorial3.ex3	vmcontext/log.go:4	eventlog::fd91bc63 -&gt; '[blob] hash: EiJwGFTpdrHuD1CNvvZaXzG328nN3okeQceQp3Gze2LC, field sizes: [28924 10]'
+54:43.775	INFO	TestTutorial3.ex3	vm/event.go:24	$/p8vApchzrMUnr6ZwvSdZW9TJB1rq3VRzTQhoQdUbcgaD::fd91bc63/event [blob] hash: EiJwGFTpdrHuD1CNvvZaXzG328nN3okeQceQp3Gze2LC, field sizes: [28924 10]
+54:43.775	INFO	TestTutorial3.ex3	vmcontext/runreq.go:311	eventlog -&gt; '[req] [0]GaW6aGpFMz5RoGrihkzqDvf8Y5o7FwHKf4HVdwufkLPc: Ok'
+54:43.776	INFO	TestTutorial3	solo/clock.go:35	AdvanceClockBy: logical clock advanced by 2ns
+54:43.776	INFO	TestTutorial3.ex3.m	mempool/mempool.go:119	OUT MEMPOOL [0]GaW6aGpFMz5RoGrihkzqDvf8Y5o7FwHKf4HVdwufkLPc
+54:43.776	INFO	TestTutorial3.ex3	solo/run.go:86	state transition #1 --&gt; #2. Requests in the block: 1. Outputs: 1
+54:43.776	INFO	TestTutorial3	solo/clock.go:44	ClockStep: logical clock advanced by 1ms
+54:43.809	INFO	TestTutorial3.ex3	vmcontext/log.go:4	eventlog::cebf5908 -&gt; '[deploy] name: example1 hname: ffb07aeb, progHash: EiJwGFTpdrHuD1CNvvZaXzG328nN3okeQceQp3Gze2LC, dscr: 'N/A''
+54:43.809	INFO	TestTutorial3.ex3	vm/event.go:24	$/p8vApchzrMUnr6ZwvSdZW9TJB1rq3VRzTQhoQdUbcgaD::cebf5908/event [deploy] name: example1 hname: ffb07aeb, progHash: EiJwGFTpdrHuD1CNvvZaXzG328nN3okeQceQp3Gze2LC, dscr: 'N/A'
+54:43.809	INFO	TestTutorial3.ex3	vmcontext/runreq.go:311	eventlog -&gt; '[req] [0]CHvU6BUDgt9MZJTxsYMZ1p1veg591mvwKGQBJd2KYdaB: Ok'
+54:43.809	INFO	TestTutorial3	solo/clock.go:35	AdvanceClockBy: logical clock advanced by 2ns
+54:43.809	INFO	TestTutorial3.ex3.m	mempool/mempool.go:119	OUT MEMPOOL [0]CHvU6BUDgt9MZJTxsYMZ1p1veg591mvwKGQBJd2KYdaB
+54:43.809	INFO	TestTutorial3.ex3	solo/run.go:86	state transition #2 --&gt; #3. Requests in the block: 1. Outputs: 1
+54:43.809	INFO	TestTutorial3	solo/clock.go:44	ClockStep: logical clock advanced by 1ms
+54:43.811	INFO	TestTutorial3.ex3	vmcontext/log.go:4	Message stored: Hello, world!
+54:43.811	INFO	TestTutorial3.ex3	vmcontext/runreq.go:311	eventlog -&gt; '[req] [0]G83Pq9vboW75dYD8Q8HPS1b3cnxYVFXn1yWn3YdpyLnn: Ok'
+54:43.811	INFO	TestTutorial3	solo/clock.go:35	AdvanceClockBy: logical clock advanced by 2ns
+54:43.812	INFO	TestTutorial3.ex3.m	mempool/mempool.go:119	OUT MEMPOOL [0]G83Pq9vboW75dYD8Q8HPS1b3cnxYVFXn1yWn3YdpyLnn
+54:43.812	INFO	TestTutorial3.ex3	solo/run.go:86	state transition #3 --&gt; #4. Requests in the block: 1. Outputs: 1
+54:43.812	INFO	TestTutorial3	solo/clock.go:44	ClockStep: logical clock advanced by 1ms
+54:43.812	INFO	TestTutorial3.ex3	solo/req.go:243	callView: example1::getString
+--- PASS: TestTutorial3 (0.04s)
+</code></pre>
+<p>The final state of the chain is <code>#4</code>. The chain changes its state in response to
+the requests.</p>
+<p><code>state transition #0 --&gt; #1</code> settles the initial state of the chain (see
+<a href="tutorial/01.html">First example</a>).</p>
+<p>The <code>state transition #1 --&gt; #2</code> and <code>state transition #2 --&gt; #3</code> are result of
+the <code>Solo</code>
+call <code>err := chain.DeployWasmContract(nil, &quot;example1&quot;, &quot;../pkg/example_tutorial_bg.wasm&quot;)</code>:</p>
+<ul>
+<li>The first state transition corresponds to the storing of the <em>wasm</em> binary 
+file as a binary object in the chain.</li>
+<li>The second state transition corresponds to the deployment of the wasm smart
+contract based on this binary object.</li>
+</ul>
+<p>The <code>state transition #3 --&gt; #4</code> corresponds to sending the
+string <code>Hello, world!</code> by posting a <code>storeString</code> request to the newly deployed
+smart contract.</p>
+<p>The test then calls the view <code>getString</code> of the smart contract and asserts the
+returned string is <code>Hello, world!</code>. Note that when calling a view no state 
+transition occurs.</p>
+<p>Next: <a href="tutorial/05.html">Structure of the smart contract</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploring-iota-smart-contracts-5"><a class="header" href="#exploring-iota-smart-contracts-5">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="tutorial/04.html">Deploying and running a Rust smart contract</a></p>
+<h2 id="structure-of-the-smart-contract"><a class="header" href="#structure-of-the-smart-contract">Structure of the smart contract</a></h2>
+<p>Smart contracts are programs, immutably stored in the chain. In the previous
+example the binary file with the code of the smart contract
+<em>example_tutorial_bg.wasm</em> will be immutably stored in the chain state.</p>
+<p>The logical structure of an ISCP smart contract is independent of the VM type we
+use, be it a <em>Wasm</em> smart contract or any other VM type.</p>
+<p><img src="tutorial/SC-structure.png" alt="" /></p>
+<p>Each smart contract on the chain is identified by its name hashed into 4 bytes
+and interpreted as <code>uint32</code> value: the so called <code>hname</code>. For example,
+the <code>hname</code> of the root contract is <em>0xcebf5908</em>, the unique identifier of the
+<code>root</code> contract in every chain.</p>
+<p>Each smart contract instance has a program with a collection of entry points and
+a state. An entry point is a function of the program through which the program
+can be invoked. The <code>example1</code> contract above has three entry
+points: <code>storeString</code>, <code>getString</code> and <code>withdrawIota</code>.</p>
+<p>There are several ways to invoke an entry point: a request, a call and a view
+call, depending on the type of the entry point.</p>
+<p>The smart contract program can access its state and account through an interface
+layer called the <em>Sandbox</em>.</p>
+<h3 id="state"><a class="header" href="#state">State</a></h3>
+<p>The smart contract state is its data, with each update stored on the chain. The
+state can only be modified by the smart contract program itself. There are two
+parts of the state:</p>
+<ul>
+<li>A collection of key/value pairs called the <code>data state</code>. Each key and value
+are byte arrays of arbitrary size (there are practical limits set by the
+database, of course). The value of the key/value pair is always retrieved by
+its key.</li>
+<li>A collection of <code>color: balance</code> pairs called the <code>account</code>. The account
+represents the balances of tokens of specific colors controlled by the smart
+contract. Receiving and spending tokens into/from the account means changing
+the account's balances.</li>
+</ul>
+<p>Only the smart contract program can change its data state and spend from its
+account. Tokens can be sent to the smart contract account by any other agent on
+the ledger, be it a wallet with an address or another smart contract.</p>
+<p>See <a href="tutorial/accounts.html">Accounts</a> for more info on sending and receiving tokens.</p>
+<h3 id="entry-points"><a class="header" href="#entry-points">Entry points</a></h3>
+<p>There are two types of entry points:</p>
+<ul>
+<li><em>Full entry points</em> or just <em>entry points</em>. These functions can modify
+(mutate) the state of the smart contract.</li>
+<li><em>View entry points</em> or <em>views</em>. These are read-only functions. They are used
+only to retrieve the information from the smart contract state. They can’t
+modify the state, i.e. are read-only calls.</li>
+</ul>
+<p>The <code>example1</code> program has three entry points:</p>
+<ul>
+<li>
+<p><code>storeString</code> a full entry point. It first checks if parameter
+called <code>paramString</code> exist. If so, it stores the string value of the parameter
+into the state variable <code>storedString</code>. If parameter <code>paramString</code> is missing,
+the program panics.</p>
+</li>
+<li>
+<p><code>getString</code> is a view entry point that returns the value of the
+variable <code>storedString</code>.</p>
+</li>
+<li>
+<p><code>withdrawIota</code> is a full entry point that checks if the caller is and address
+and if the caller is equal to the creator of smart contract. If not, it
+panics. If it passes the validation, the program sends all the iotas contained
+in the smart contract's account to the caller.</p>
+</li>
+</ul>
+<p>Note that in <code>example1</code> the Rust functions associated with full entry points
+take a parameter of type <code>ScFuncContext</code>. It gives full (read-write) access to
+the state. In contrast, <code>getString</code> is a view entry point and its associated
+function parameter has type <code>ScViewContext</code>. A view is not allowed to mutate 
+the state.</p>
+<h2 id="panic-exception-handling"><a class="header" href="#panic-exception-handling">Panic. Exception handling</a></h2>
+<p>The following test posts a request to the <code>example1</code> smart contract without 
+the expected parameter <code>paramString</code>. The
+statement <code>ctx.require(par.exists(), &quot;string parameter not found&quot;);</code> makes 
+the smart contract panic if the condition is not satisfied.</p>
+<pre><code class="language-go">func TestTutorial4(t *testing.T) {
+    env := solo.New(t, false, false)
+    chain := env.NewChain(nil, &quot;ex4&quot;)
+    // deploy the contract on chain
+    err := chain.DeployWasmContract(nil, &quot;example1&quot;, &quot;example_tutorial_bg.wasm&quot;)
+    require.NoError(t, err)
+    
+    // call contract incorrectly (omit 'paramString')
+    req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;)
+    req.WithIotas(1)
+    _, err = chain.PostRequestSync(req, nil)
+    require.Error(t, err)
+}
+</code></pre>
+<p>The fragment in the output of the test:</p>
+<pre><code>39:25.991	PANIC	TestTutorial4.ex4	vmcontext/log.go:12	string parameter not found
+39:25.993	INFO	TestTutorial4.ex4	vmcontext/runreq.go:311	eventlog -&gt; '[req] [0]5yBro4RpemZvCjJr4U6RLjcXdXdtnV3b3WjM9HUWZE8v: [0]5yBro4RpemZvCjJr4U6RLjcXdXdtnV3b3WjM9HUWZE8v: recovered from panic in VM: string parameter not found'
+</code></pre>
+<p>It shows that the panic indeed occurred. The test passes because the resulting
+error was expected.</p>
+<p>Note that this test ends with the state <code>#4</code>, despite the fact that the last
+request to the smart contract failed. This is important: <strong>whatever happens
+during the execution of a smart contract's full entry point, processing of the 
+request always results in the state transition</strong>.</p>
+<p>The VM context catches exceptions (panics) in the program. Its consequences are
+recorded in the state of the chain during the fallback processing, no matter if
+the panic was triggered by the logic of the smart contract or whether it was 
+triggered by the sandbox run-time code.</p>
+<p>In the case of <code>example1</code> the error event was recorded in the immutable event
+log of the chain, but the data state of the smart contract wasn't modified. In
+other cases the fallback actions may be more complex.</p>
+<p>Next: <a href="tutorial/06.html">Invoking smart contracts. Sending a request</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploring-iota-smart-contracts-6"><a class="header" href="#exploring-iota-smart-contracts-6">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="tutorial/05.html">Structure of the smart contract</a></p>
+<p>(see also <a href="tutorial/invoking.html">General scheme of invoking an entry point</a>)</p>
+<h2 id="invoking-smart-contracts-sending-a-request"><a class="header" href="#invoking-smart-contracts-sending-a-request">Invoking smart contracts. Sending a request</a></h2>
+<p>The statements</p>
+<pre><code class="language-go">req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;, &quot;paramString&quot;, &quot;Hello, world!&quot;)
+req.WithIotas(1)
+_, err = chain.PostRequestSync(req, nil)
+</code></pre>
+<p>in the example <code>TestTutorial3</code> invoke the <code>storeString</code> entry point of the
+<code>example1</code> smart contract by posting it as a request. The parameter
+named <code>paramString</code> is passed with the string value &quot;Hello, world!&quot;. The <em>Solo</em>
+test code itself is separate from the chain where the smart contract is 
+invoked, and is not executed &quot;on-chain&quot;.</p>
+<p><code>NewCallParams</code> creates a call object named <code>req</code> which wraps all call
+parameters into a single object. This is syntactic sugar just for convenience.
+In this case the call object only wraps the target smart contract name, target 
+entry point name, and one named parameter <code>paramString</code>. In other cases it could
+contain many parameters.</p>
+<p><code>WithIotas</code> transfers a single iota with the request. All on-ledger requests 
+are implemented as transfer requests with additional data, and therefore we 
+need to transfer at least a single token for the request to be valid.</p>
+<p><code>PostRequestSync</code> sends the request to the chain. Let’s describe in detail what
+is going on here.</p>
+<p><img src="tutorial/send_request.png" alt="" /></p>
+<p>The diagram above depicts the generic process of posting a request to the smart
+contract. The same picture is valid for the <em>Solo</em> environment and for any other
+requester which sends a request to the smart contract, for example the ISCP 
+wallet or another chain.</p>
+<p>Posting the request always consists of the steps below. Note that in Solo all 7
+steps are carried out by the single call to <code>PostRequestSync</code>.</p>
+<ol>
+<li>Creating the smart contract transaction which wraps the request with metadata
+and moves tokens. Each request transaction is a value transaction, it always
+moves at least one token. Therefore, each request transaction must be signed
+by the private key of the owner of the tokens: the requester. That securely
+identifies each requester in ISCP. In Solo the transaction is signed by the
+private key provided in the second parameter of the <code>PostRequestSync</code>
+call (see below);</li>
+<li>Posting the request transaction to the Tangle and confirming it. In <em>Solo</em> it
+is just adding the transaction to the <code>UTXODB ledger</code>, the emulated UTXO
+Ledger, so it is confirmed immediately and synchronously. The confirmed
+transaction on the ledger becomes part of the backlog of requests to the
+chain. In the real UTXO Ledger the sender would have to wait until the ledger
+confirms the transaction;</li>
+<li>The chain picks the request from the backlog and runs the request on the VM;</li>
+<li>The VM calls the target entry point of the smart contract program. The
+program updates the state;</li>
+<li>The VM produces a state update transaction (anchor);</li>
+<li>The chain signs the transaction with its private key. In the <em>Solo</em>
+environment it is the <code>ChainSigScheme</code> property of the chain. In the real 
+Wasp environment it is the threshold signature of the committee;</li>
+<li>The chain posts the resulting transaction to the Tangle and once it confirms 
+it solidifies the corresponding state. In the <em>Solo</em> environment it adds 
+the transaction to the UTXODB ledger.</li>
+</ol>
+<p>The following lines in the log corresponds to the step 7:</p>
+<pre><code>54:43.809	INFO	TestTutorial3.ex3	vmcontext/runreq.go:311	eventlog -&gt; '[req] [0]CHvU6BUDgt9MZJTxsYMZ1p1veg591mvwKGQBJd2KYdaB: Ok'
+54:43.809	INFO	TestTutorial3	solo/clock.go:35	AdvanceClockBy: logical clock advanced by 2ns
+54:43.809	INFO	TestTutorial3.ex3.m	mempool/mempool.go:119	OUT MEMPOOL [0]CHvU6BUDgt9MZJTxsYMZ1p1veg591mvwKGQBJd2KYdaB
+54:43.809	INFO	TestTutorial3.ex3	solo/run.go:86	state transition #2 --&gt; #3. Requests in the block: 1. Outputs: 1
+</code></pre>
+<p>The chain adds a record about successfully processed request
+<code>[0]CHvU6BUDgt9MZJTxsYMZ1p1veg591mvwKGQBJd2KYdaB</code> to the immutable on-chain log.</p>
+<p>The statement <code>_, err = chain.PostRequestSync(req, nil)</code> in the Solo test uses <code>nil</code>
+for the default signature scheme of the requester. The <code>OriginatorSigScheme</code>,
+the one which deployed the chain, is used as the default requester. In the
+<em>Solo</em> environment you can create other identities for requesters (“wallets”)
+with <code>NewKeyPairWithFunds</code>.</p>
+<p>Next: <a href="tutorial/07.html">Invoking smart contracts. Calling a view</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploring-iota-smart-contracts-7"><a class="header" href="#exploring-iota-smart-contracts-7">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="tutorial/06.html">Invoking smart contracts. Sending a request</a></p>
+<h2 id="invoking-smart-contracts-calling-a-view"><a class="header" href="#invoking-smart-contracts-calling-a-view">Invoking smart contracts. Calling a view</a></h2>
+<p>The statement in the above example calls the view entry point <code>getString</code> of the
+smart contract <code>example1</code> without parameters:</p>
+<pre><code class="language-go">res, err := chain.CallView(&quot;example1&quot;, &quot;getString&quot;)
+</code></pre>
+<p>The call returns both a collection of key/value pairs <code>res</code> and an error result
+<code>err</code> in typical Go fashion.</p>
+<p><img src="tutorial/call_view.png" alt="" /></p>
+<p>The basic principle of calling a view is similar to sending a request to the
+smart contract. The essential difference is that calling a view does not 
+constitute an asynchronous transaction, but is just a direct synchronous 
+call to the view entry point function, exposed by the smart contract.</p>
+<p>Therefore, calling a view doesn't involve any token transfers. Sending a
+request (a transaction) to a view entry point will result in an exception. It
+will return all attached tokens back to the sender (minus fees, if any).</p>
+<p>Views are used to retrieve information about the state of the smart contract,
+for example to display the information on a website. Certain <em>Solo</em> methods such
+as <code>chain.GetInfo</code>, <code>chain.GetFeeInfo</code> and <code>chain.GetTotalAssets</code> call views of
+the core smart contracts behind scenes to retrieve the information about the
+chain or a specific smart contract.</p>
+<h3 id="decoding-results-returned-by-postrequestsync-and-callview"><a class="header" href="#decoding-results-returned-by-postrequestsync-and-callview">Decoding results returned by <em>PostRequestSync</em> and <em>CallView</em></a></h3>
+<p>The following is a specific technicality of the Go environment of <em>Solo</em>.</p>
+<p>The result returned by the call to an entry point from the <em>Solo</em> environment
+is in the form of key/value pairs, the <code>dict.Dict</code> type. It is an extended
+interface and alias of <code>map[string][]byte</code>.
+The <a href="https://github.com/iotaledger/wasp/blob/master/packages/kv/dict/dict.go">dict.Dict</a>
+package implements the <code>kv.KVStore</code> interface and provides a lot of useful 
+functions to handle this form of key/value storage.</p>
+<p>In normal operation of smart contracts one can only retrieve results returned by
+view calls, since view calls are synchronous. Sending a request to a smart
+contract is normally an asynchronous operation, and the caller cannot retrieve
+the result. However, in the <em>Solo</em> environment, the call to <code>PostRequestSync</code> is
+synchronous, and the caller can inspect the result: this is a convenient
+difference between the mocked <em>Solo</em> environment, and the distributed UTXO
+Ledger used by Wasp nodes. It can be used to make assertions about the results
+of a call in the tests.</p>
+<p>In the example <code>res</code> is a dictionary where keys and values are binary slices.
+The statement</p>
+<pre><code class="language-go">returnedString, exists, err := codec.DecodeString(res.MustGet(&quot;paramString&quot;))
+</code></pre>
+<p>takes the value of the key <code>paramString</code> from the key value store and attempts
+to decode it as a <code>string</code>. The decoding returns a possible error value,
+existence flag and the value itself.</p>
+<p>Next: <a href="tutorial/08.html">Accounts: deposit and withdraw tokens</a> </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploring-iota-smart-contracts-8"><a class="header" href="#exploring-iota-smart-contracts-8">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="tutorial/07.html">Invoking smart contracts. Calling a view</a></p>
+<p>For a general description of the ISCP account system see
+<a href="tutorial/iscp_accounts.html">ISCP accounts. Controlling token balances</a>.</p>
+<h2 id="accounts-deposit-and-withdraw-tokens"><a class="header" href="#accounts-deposit-and-withdraw-tokens">Accounts: deposit and withdraw tokens</a></h2>
+<p>Multiple chains in ISCP adds another dimension to the ledger: smart contracts
+can exchange assets between themselves on different chains as well as with
+addresses on the UTXO Ledger. We will skip explaining the whole picture for time
+being and will concentrate on one specific use case.</p>
+<p>Let's say we have a wallet, we have private key (the address) and some tokens on
+the address. The use case is about sending tokens to and receiving tokens from a
+smart contract on a chain.</p>
+<p>Here we explore the concept of <code>on-chain account</code> or just <code>account</code>. On the UTXO
+Ledger the private key is represented by the address (the hash of the public
+key). That address holds balances of colored tokens. Those tokens are
+&quot;controlled&quot; by the private key.</p>
+<p>In ISCP we extend the concept of <em>address</em> with the concept of <code>account</code>. An 
+<code>account</code> contains colored tokens just like an <code>address</code>. The <code>account</code> is
+located on some chain, and it is controlled by the same private key as the 
+associated address. So, an address can control tokens on the UTXO Ledger 
+(Level-1, or <code>L1</code>) and on each chain (Level-2, or <code>L2</code>).</p>
+<p>The chain essentially is a custodian of the tokens deposited in its <code>accounts</code>.</p>
+<p>The following test demonstrates how a wallet can deposit tokens in a chain 
+account and then withdraw them back.</p>
+<pre><code class="language-go">func TestTutorial5(t *testing.T) {
+    env := solo.New(t, false, false)
+    chain := env.NewChain(nil, &quot;ex5&quot;)
+
+    // create a wallet with solo.Saldo iotas.
+    // the wallet has address and it is globally identified
+    // through a universal identifier: the agent ID
+    userWallet, userAddress := env.NewKeyPairWithFunds()
+    userAgentID := coretypes.NewAgentID(userAddress, 0)
+    
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo) // solo.Saldo on address
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)  // empty on-chain
+    
+    t.Logf(&quot;Address of the userWallet is: %s&quot;, userAddress)
+    numIotas := env.GetAddressBalance(userAddress, ledgerstate.ColorIOTA)
+    t.Logf(&quot;balance of the userWallet is: %d iota&quot;, numIotas)
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo)
+    
+    // send 42 iotas from wallet to own account on-chain, controlled by the same wallet
+    req := solo.NewCallParams(accounts.Name, accounts.FuncDeposit)
+    req.WithIotas(42)
+    _, err := chain.PostRequestSync(req, userWallet)
+    require.NoError(t, err)
+    
+    // check address balance: must be 42 iotas less
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo-42)
+    // check the on-chain account. Must contain 42 iotas
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 42)
+    
+    // withdraw all iotas
+    req = solo.NewCallParams(accounts.Name, accounts.FuncWithdraw)
+    req.WithIotas(1)
+    _, err = chain.PostRequestSync(req, userWallet)
+    require.NoError(t, err)
+    
+    // we are back to initial situation: IOTA is fee-less!
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo-1)
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0) // empty
+}
+</code></pre>
+<p>The example above creates a chain, then creates a wallet with solo.Saldo iotas and
+sends (deposits) 42 iotas to the corresponding on-chain account by posting
+a <code>deposit</code> request to the <code>accounts</code> core contract on that chain. That account
+will now contain 42 iotas. The address on the UTXO Ledger will contain 42 iotas
+less, of course.</p>
+<p>In the next step the same wallet (<code>userWallet</code>) will withdraw all 42 iotas back
+to the address by sending a <code>withdraw</code> request to the <code>accounts</code> contract on 
+the same chain.</p>
+<p>If the same request would be posted from another user wallet (another private
+key), the <code>withdraw</code> request would fail. Try it! Only the owner of the address
+can move those funds from the on-chain account.</p>
+<p>Next: <a href="tutorial/09.html">Sending tokens to the smart contract</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploring-iota-smart-contracts-9"><a class="header" href="#exploring-iota-smart-contracts-9">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="tutorial/08.html">Accounts: deposit and withdraw tokens</a></p>
+<h2 id="sending-tokens-to-the-smart-contract"><a class="header" href="#sending-tokens-to-the-smart-contract">Sending tokens to the smart contract</a></h2>
+<p>Let's send some tokens to the smart contract. The following example deploys the
+familiar <code>example1</code> Rust/Wasm smart contract on the chain and sends 42 iota to it.</p>
+<pre><code class="language-go">func TestTutorial6(t *testing.T) {
+    env := solo.New(t, false, false)
+    chain := env.NewChain(nil, &quot;ex6&quot;)
+    
+    err := chain.DeployWasmContract(nil, &quot;example1&quot;, &quot;example_tutorial_bg.wasm&quot;)
+    require.NoError(t, err)
+    
+    contractAgentID := coretypes.NewAgentID(chain.ChainID.AsAddress(), coretypes.Hn(&quot;example1&quot;))
+    
+    userWallet, userAddress := env.NewKeyPairWithFunds()
+    userAgentID := coretypes.NewAgentID(userAddress, 0)
+    
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo)
+    chain.AssertAccountBalance(contractAgentID, ledgerstate.ColorIOTA, 0) // empty on-chain
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)     // empty on-chain
+    
+    req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;, &quot;paramString&quot;, &quot;Hello, world!&quot;)
+    req.WithIotas(42)
+    _, err = chain.PostRequestSync(req, userWallet)
+    require.NoError(t, err)
+    
+    chain.AssertAccountBalance(contractAgentID, ledgerstate.ColorIOTA, 42)
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo-42)
+}
+</code></pre>
+<p>The statements</p>
+<pre><code>req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;, &quot;paramString&quot;, &quot;Hello, world!&quot;)
+req.WithIotas(42)
+</code></pre>
+<p>attach 42 iotas to the usual call to the <code>storeString</code> entry point.
+<code>PostRequestSync</code> sends the request with the iotas to the smart contract. The 42
+iotas appear in the account controlled by the smart contract on its chain.</p>
+<p>So, what does the <code>example1</code> smart contract do with these 42 iotas? Nothing!
+However, the creator of the smart contract (and nobody else) may withdraw those
+iotas to its own address by sending a <code>withdrawIotas</code> request.</p>
+<p>What if we send some other colored tokens, not iotas, to the <code>example1</code>
+smart contract? They will effectively be lost, because the programmer of
+the <code>example1</code> smart contract didn't implement a way to deal with colored
+tokens.</p>
+<p>Next: <a href="tutorial/10.html">Return of tokens in case of failure</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploring-iota-smart-contracts-10"><a class="header" href="#exploring-iota-smart-contracts-10">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="tutorial/09.html">Sending tokens to the smart contract</a></p>
+<h2 id="return-of-tokens-in-case-of-failure"><a class="header" href="#return-of-tokens-in-case-of-failure">Return of tokens in case of failure</a></h2>
+<p>Natural question: what if I attach tokens to the request, send it to the smart
+contract and the smart contract fails (panics)? The panics may occur for
+whatever reason: it may be due to wrong parameters, or it may be a runtime
+error, or a bug. What will happen with my tokens?</p>
+<p>The following test demonstrates the situation when the request results in a
+panic in the smart contract.</p>
+<pre><code class="language-go">func TestTutorial7(t *testing.T) {
+    env := solo.New(t, false, false)
+    chain := env.NewChain(nil, &quot;ex7&quot;)
+    
+    err := chain.DeployWasmContract(nil, &quot;example1&quot;, &quot;example_tutorial_bg.wasm&quot;)
+    require.NoError(t, err)
+    
+    contractAgentID := coretypes.NewAgentID(chain.ChainID.AsAddress(), coretypes.Hn(&quot;example1&quot;))
+    
+    userWallet, userAddress := env.NewKeyPairWithFunds()
+    userAgentID := coretypes.NewAgentID(userAddress, 0)
+    
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo)
+    chain.AssertAccountBalance(contractAgentID, ledgerstate.ColorIOTA, 0) // empty on-chain
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)     // empty on-chain
+    
+    // missing parameter, will panic
+    req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;)
+    req.WithIotas(42)
+    _, err = chain.PostRequestSync(req, userWallet)
+    require.Error(t, err)
+    
+    chain.AssertAccountBalance(contractAgentID, ledgerstate.ColorIOTA, 0)
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo)
+}
+</code></pre>
+<p>The programmer forgets the parameter <code>paramString</code> and the program panics:</p>
+<pre><code>01:09.361	PANIC	TestTutorial7.ex7	vmcontext/log.go:12	string parameter not found
+01:09.363	INFO	TestTutorial7.ex7	vmcontext/runreq.go:311	eventlog -&gt; '[req] [1]3F852PiSDkYXSjhDjLhqYK5bRVWtMkHA1fyicXEams3L: [1]3F852PiSDkYXSjhDjLhqYK5bRVWtMkHA1fyicXEams3L: recovered from panic in VM: string parameter not found'
+01:09.363	INFO	TestTutorial7.ex7.m	mempool/mempool.go:119	OUT MEMPOOL [1]3F852PiSDkYXSjhDjLhqYK5bRVWtMkHA1fyicXEams3L
+01:09.363	INFO	TestTutorial7.ex7	solo/run.go:86	state transition #3 --&gt; #4. Requests in the block: 1. Outputs: 2
+</code></pre>
+<p>We can see that all sent 42 tokens are returned to the sender's address.</p>
+<p>In case of panic for whatever reason, the fallback logic of the VM context of
+ISCP returns all tokens (minus fees) to the sender (to the sender's address the
+example above).</p>
+<p>Next: <a href="tutorial/11.html">Sending tokens from smart contract to address</a> </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="exploring-iota-smart-contracts-11"><a class="header" href="#exploring-iota-smart-contracts-11">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="tutorial/10.html">Return of tokens in case of failure</a> </p>
+<h2 id="sending-tokens-from-smart-contract-to-address"><a class="header" href="#sending-tokens-from-smart-contract-to-address">Sending tokens from smart contract to address</a></h2>
+<p>The programmer of the <code>example</code> smart contract implemented the entry point 
+<code>withdrawIota</code>. What it is for? If not for this method, any tokens sent to the
+smart contract will be essentially lost: there's no other way to withdraw tokens
+from the smart contract.</p>
+<p>The entry point requires the caller to be an address and to be equal to the 
+<code>creator</code> of the instance of the contract. The <code>creator</code> (its <code>agentID</code>) is
+always contained in the registry of contracts. If these conditions are not 
+satisfied, the call panics.</p>
+<p>If the conditions are satisfied, the contract calls the <code>transfer_to_address</code> 
+sandbox function to send all iotas, owned by the contract, to the caller's 
+address.</p>
+<p>What if we send some other colored tokens, not ordinary iotas, to the smart
+contract? Those will stay there forever, because in this contract we can only
+withdraw iotas.</p>
+<p>The following <em>Solo</em> test demonstrates how it works:</p>
+<pre><code class="language-go">func TestTutorial8(t *testing.T) {
+    // create solo environment
+    env := solo.New(t, false, false)
+    // deploy new chain
+    chain := env.NewChain(nil, &quot;ex8&quot;)
+    
+    // create a user's wallet (private key) and request solo.Saldo iotas from the faucet.
+    // It corresponds to L1 address
+    userWallet, userAddress := env.NewKeyPairWithFunds()
+    userAgentID := coretypes.NewAgentID(userAddress, 0)
+    t.Logf(&quot;userAgentID: %s&quot;, userAgentID)
+    
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo)
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0) // empty on-chain
+    
+    // the chain owner (default) send a request to the root contract to grant right to deploy
+    // contract on the chain to the use
+    req := solo.NewCallParams(root.Interface.Name, root.FuncGrantDeploy, root.ParamDeployer, userAgentID)
+    req.WithIotas(1)
+    _, err := chain.PostRequestSync(req, nil)
+    require.NoError(t, err)
+    
+    // user deploys wasm smart contract on the chain under the name &quot;example1&quot;
+    // the wasm binary is in the file
+    err = chain.DeployWasmContract(userWallet, &quot;example1&quot;, &quot;example_tutorial_bg.wasm&quot;)
+    require.NoError(t, err)
+    
+    contractAgentID := coretypes.NewAgentID(chain.ChainID.AsAddress(), coretypes.Hn(&quot;example1&quot;))
+    
+    // the deployment of the smart contract required 1 requests to the root contract:
+    // - to submit binary to the on-chain &quot;blob&quot; registry
+    // - to deploy contract from the blob
+    // Two tokens were taken from the user account to form requests and then were
+    // deposited to the user's account on the chain
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo-2)
+    chain.AssertAccountBalance(contractAgentID, ledgerstate.ColorIOTA, 0) // empty on-chain
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)
+    
+    // user send a &quot;storeString&quot; request to the smart contract. It attaches 42 iotas to the request
+    // It also takes 1 iota for the request token
+    // Result is 42 iotas moved to the smart contract's account
+    req = solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;, &quot;paramString&quot;, &quot;Hello, world!&quot;).
+    WithIotas(42)
+    _, err = chain.PostRequestSync(req, userWallet)
+    require.NoError(t, err)
+    
+    chain.AssertAccountBalance(contractAgentID, ledgerstate.ColorIOTA, 42)
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo-44)
+    
+    // user withdraws all iotas from the smart contract back
+    // Out of 42 iotas 41 iota is coming back to the user's address, 1 iotas
+    // is accrued to the user on chain
+    req = solo.NewCallParams(&quot;example1&quot;, &quot;withdrawIota&quot;)
+    req.WithIotas(1)
+    _, err = chain.PostRequestSync(req, userWallet)
+    require.NoError(t, err)
+    
+    chain.AssertAccountBalance(contractAgentID, ledgerstate.ColorIOTA, 0)
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo-44+42)
+}
+</code></pre>
+<p>Next: <a href="tutorial/iscp_accounts.html">ISCP accounts. Controlling token balances</a> </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="setup-a-private-iscp-cluster"><a class="header" href="#setup-a-private-iscp-cluster">Setup a private ISCP Cluster</a></h1>
+<h1 id="wasp-cluster"><a class="header" href="#wasp-cluster">wasp-cluster</a></h1>
+<p><code>wasp-cluster</code> is a tool that allows to easily run a cluster of Wasp nodes
+in a single host, to experiment with smart contracts in a controlled environment.</p>
+<p><strong>Note:</strong> <code>wasp-cluster</code> is intended for <strong>testing purposes</strong>, and is <em>not</em>
+suitable for running a cluster in a production environment.</p>
+<h2 id="before"><a class="header" href="#before">Before</a></h2>
+<p>Make sure you have all needed binaries compiled and installed in the system
+path:</p>
+<ul>
+<li><code>wasp</code> (Wasp server)</li>
+<li><code>wasp-cli</code> (CLI client for the Wasp node)</li>
+<li><code>wasp-cluster</code> (this tool)</li>
+</ul>
+<p>You can find instructions in
+the <a href="../../../readme.html#Prerequisites">main README file</a>.</p>
+<h2 id="initialize-the-cluster-configuration"><a class="header" href="#initialize-the-cluster-configuration">Initialize the cluster configuration</a></h2>
+<pre><code>wasp-cluster init my-cluster
+</code></pre>
+<p>This will create a directory named <code>my-cluster</code>, containing the cluster
+configuration file (<code>cluster.json</code>) and one subdirectory for each node.</p>
+<pre><code>my-cluster/
+├── cluster.json
+├── wasp0
+│   └── config.json
+├── wasp1
+│   └── config.json
+├── wasp2
+│   └── config.json
+└── wasp3
+    └── config.json
+</code></pre>
+<p>By default the cluster contains 4 Wasp nodes. You can change this with the
+<code>-n</code> parameter. E.g.: <code>wasp-cluster init my-cluster -n 2</code>.</p>
+<p>If you need to change the default configuration of the nodes, you can do so now,
+by editing the <code>config.json</code> files.</p>
+<p>Note: by default <code>wasp-cluster</code> configures all nodes to store the database in
+main memory: all data will be lost when the cluster is stopped (remember that
+this tool is used primarily for testing). If you need a persistent database,
+change the <code>inMemory</code> setting in all <code>config.json</code> files.</p>
+<h2 id="start-the-cluster"><a class="header" href="#start-the-cluster">Start the cluster</a></h2>
+<pre><code>cd my-cluster
+wasp-cluster start
+</code></pre>
+<p>(Alternatively: <code>wasp-cluster start my-cluster</code>.)</p>
+<p>When done using the cluster, press <code>Ctrl-C</code> to stop it.</p>
+<h2 id="connecting-to-an-existing-goshimmer-network"><a class="header" href="#connecting-to-an-existing-goshimmer-network">Connecting to an existing Goshimmer network</a></h2>
+<p>By default, <code>wasp-cluster</code> provides a mock Goshimmer node to operate a
+simulated ledger without the need for consensus. This is good
+for quick tests, but is far from how the ledger works in a production
+environment.</p>
+<p>To connect the Wasp cluster to a more realistic environment (e.g. to be able to
+persist the ledger), you can use the <code>docker-network</code> tool available
+in the Goshimmer repository in order to start a cluster of Goshimmer nodes.</p>
+<p>Example steps:</p>
+<ol>
+<li>Start a Goshimmer network of 2 nodes:</li>
+</ol>
+<pre><code>cd &lt;goshimmer&gt;/tools/docker-network
+./run.sh 2 0
+</code></pre>
+<ol start="2">
+<li>In another console, initialize a cluster of 4 Wasp nodes (<code>-n 4</code>) with no
+mock Goshimmer node (<code>-g</code>).</li>
+</ol>
+<pre><code>wasp-cluster init my-cluster -n 4 -g
+</code></pre>
+<ol start="3">
+<li>Start the Wasp cluster:</li>
+</ol>
+<pre><code>$ cd my-cluster
+$ wasp-cluster start
+</code></pre>
+<h2 id="running-a-disposable-cluster"><a class="header" href="#running-a-disposable-cluster">Running a disposable cluster</a></h2>
+<p>If you just need to do a quick test, you can run a disposable cluster of nodes
+with the default configuration with the command:</p>
+<pre><code>wasp-cluster start -d
+</code></pre>
+<p>No need to call <code>init</code> first; this command will automatically initialize the
+cluster configuration in a temporary directory, which will be removed when the
+cluster is stopped.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                            </nav>
+
+        </div>
+
+        
+        
+                
+        
+        
+                <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+                        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+                
+    </body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Creating a chain; Core contracts - ISCP Documentation</title>
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="../tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the UTXO Ledger</a></li><li class="chapter-item expanded "><a href="../tutorial/03.html" class="active"><strong aria-hidden="true">2.3.</strong> Creating a chain; Core contracts</a></li><li class="chapter-item expanded "><a href="../tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running a Rust smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contracts. Sending a request</a></li><li class="chapter-item expanded "><a href="../tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Invoking smart contracts. Calling a view</a></li><li class="chapter-item expanded "><a href="../tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Accounts: deposit and withdraw tokens</a></li><li class="chapter-item expanded "><a href="../tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="../tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending tokens from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="../setup_wasp.html"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">ISCP Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                            </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="exploring-iota-smart-contracts"><a class="header" href="#exploring-iota-smart-contracts">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="02.html">Tokens and the UTXO Ledger</a></p>
+<h2 id="creating-a-chain-core-contracts"><a class="header" href="#creating-a-chain-core-contracts">Creating a chain; Core contracts</a></h2>
+<p>In a test we can deploy one or several chains, deploy smart contracts on them,
+and invoke them.</p>
+<p>In the previous example <code>TestTutorial1</code>, the statement
+<code>chain := env.NewChain(nil, &quot;ex1&quot;)</code> creates and deploys a new chain <code>ex1</code> in the
+environment of the test. Several chains may be deployed in the test.</p>
+<p>Deploying a chain automatically means deployment of all core smart contracts on
+it. The core contracts are responsible for the vital functions of the chain and
+provide infrastructure for all other smart contracts:</p>
+<ul>
+<li>
+<p><a href="root.html">root</a>. Responsible for the initialization of the chain, maintains
+the global parameters, and the registry of deployed contracts. It also handles
+fees and performs other functions.</p>
+</li>
+<li>
+<p><a href="_default.html">_default</a>. Any request that cannot be handled by any of the
+other deployed contracts ends up here.</p>
+</li>
+<li>
+<p><a href="accounts.html">accounts</a>. Responsible for the on-chain ledger of accounts. The
+on-chain accounts contain colored tokens, which are controlled by smart
+contracts and addresses on the UTXO Ledger.</p>
+</li>
+<li>
+<p><a href="blob.html">blob</a>. Responsible for the immutable registry of binary objects of
+arbitrary size. One blob is a collection of named binary chunks of data. For
+example, a blob can be used to store a collections of <em>wasm</em> binaries, needed
+to deploy <em>WebAssembly</em> smart contracts. Each blob in the registry is 
+referenced by its hash which is deterministically calculated from its data.</p>
+</li>
+<li>
+<p><a href="blocklog.html">blocklog</a>. Keeps track of the blocks of requests that were 
+processed by the chain.</p>
+</li>
+<li>
+<p><a href="eventlog.html">eventlog</a>. Keeps an immutable log of events in the chain. Each
+event is a message, a string, emitted by smart contracts with the <code>Event()</code>
+sandbox call. The events are published on the Wasp node publisher for
+consumption by outside subscribers. Each event is also immutably stored in
+the <code>event log</code> on the chain with a timestamp, and the id of the smart
+contract which emitted the event. Important events such as the deployment of a
+new smart contract or processing of a request are emitted as events by the
+chain's core.</p>
+</li>
+</ul>
+<h2 id="writing-and-compiling-first-rust-smart-contract"><a class="header" href="#writing-and-compiling-first-rust-smart-contract">Writing and compiling first Rust smart contract</a></h2>
+<p>In this section we will create a new smart contract. We will write its code in
+Rust, and then will use the <code>wasplib</code> <a href="../../contracts/rust/wasmlib">library</a>
+and <code>wasm-pack</code> to compile it into a WebAssembly (<em>wasm</em>) binary.</p>
+<p>Note that this tutorial is not a tutorial of the ISCP smart contract development
+environment: for that we will provide other tutorials. The only goal of these
+examples is an introduction to fundamental principles of ISCP smart contracts.</p>
+<p>We assume you already have Rust and <code>wasm-pack</code>
+<a href="https://rustwasm.github.io/wasm-pack/installer/">installed</a>.</p>
+<p>We will be using the examples from the <code>wasp</code> repository located in the
+<a href="example-tutorial">articles/tutorial/example-tutorial</a> directory.</p>
+<p>The <code>example-tutorial</code> smart contract is a simple smart contract which stores a
+string in its state upon request and allows to retrieve the stored string by
+calling a view. The smart contract also implements an entry point which allows
+the creator of the smart contract instance to withdraw all iotas contained in
+the smart contract's account on the chain.</p>
+<pre><pre class="playground"><code class="language-rust">
+<span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use wasmlib::*;
+
+const PARAM_STRING: &amp;str = &quot;paramString&quot;;
+const VAR_STRING: &amp;str = &quot;storedString&quot;;
+
+#[no_mangle]
+fn on_load() {
+    // declare entry points of the smart contract
+    let exports = ScExports::new();
+    exports.add_func(&quot;storeString&quot;, store_string);
+    exports.add_view(&quot;getString&quot;, get_string);
+    exports.add_func(&quot;withdrawIota&quot;, withdraw_iota);
+}
+
+// storeString entry point stores a string provided as parameters
+// in the state as a value of the key 'storedString'
+// panics if parameter is not provided
+fn store_string(ctx: &amp;ScFuncContext) {
+    // take parameter paramString
+    let par = ctx.params().get_string(PARAM_STRING);
+    // require parameter exists
+    ctx.require(par.exists(), &quot;string parameter not found&quot;);
+
+    // store the string in &quot;storedString&quot; variable
+    ctx.state().get_string(VAR_STRING).set_value(&amp;par.value());
+    // log the text
+    let msg = &quot;Message stored: &quot;.to_string() + &amp;par.value();
+    ctx.log(&amp;msg);
+}
+
+// getString view returns the string value of the key 'storedString'
+// The call return result as a key/value dictionary.
+// the returned value in the result is under key 'paramString'
+fn get_string(ctx: &amp;ScViewContext) {
+    // take the stored string
+    let s = ctx.state().get_string(VAR_STRING).value();
+    // return the string value in the result dictionary
+    ctx.results().get_string(PARAM_STRING).set_value(&amp;s);
+}
+
+// withdraw_iota sends all iotas contained in the contract's account
+// to the caller's L1 address.
+// Panics of the caller is not an address
+// Panics if the address is not the creator of the contract is the caller
+// The caller will be address only if request is sent from the wallet on the L1, not a smart contract
+fn withdraw_iota(ctx: &amp;ScFuncContext) {
+    let creator = ctx.contract_creator();
+    let caller = ctx.caller();
+
+    ctx.require(creator == caller, &quot;not authorised&quot;);
+    ctx.require(caller.is_address(), &quot;caller must be an address&quot;);
+
+    let bal = ctx.balances().balance(&amp;ScColor::IOTA);
+    if bal &gt; 0 {
+        ctx.transfer_to_address(&amp;caller.address(), ScTransfers::new(&amp;ScColor::IOTA, bal))
+    }
+}
+<span class="boring">}
+</span></code></pre></pre>
+<p>Running the <code>wasm-pack build</code> command will produce something like this:</p>
+<pre><code>[INFO]: Checking for the Wasm target...
+[INFO]: Compiling to Wasm...
+   Compiling wasmlib v0.1.0 (...\github.com\iotaledger\wasp\contracts\rust\wasmlib)
+   Compiling example_tutorial v0.1.0 (...\github.com\iotaledger\wasp\docs\tutorial\example-tutorial)
+    Finished release [optimized] target(s) in 2.42s
+[INFO]: Installing wasm-bindgen...
+[INFO]: Optimizing wasm binaries with `wasm-opt`...
+[INFO]: :-) Done in 3.56s
+[INFO]: :-) Your wasm pkg is ready to publish at ...\github.com\iotaledger\wasp\docs\tutorial\example-tutorial\pkg.
+</code></pre>
+<p>The 30KB file <code>example_tutorial_bg.wasm</code> is the binary of the smart contract. We
+will be using it in further examples. The file contains everything needed to
+deploy the smart contract on a chain run by the Wasp network.</p>
+<p>Next: <a href="04.html">Deploying and running a Rust smart contract</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../tutorial/02.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../tutorial/04.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../tutorial/02.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../tutorial/04.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+                
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>

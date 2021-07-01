@@ -1,0 +1,264 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Accounts: deposit and withdraw tokens - ISCP Documentation</title>
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="../tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the UTXO Ledger</a></li><li class="chapter-item expanded "><a href="../tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain; Core contracts</a></li><li class="chapter-item expanded "><a href="../tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running a Rust smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contracts. Sending a request</a></li><li class="chapter-item expanded "><a href="../tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Invoking smart contracts. Calling a view</a></li><li class="chapter-item expanded "><a href="../tutorial/08.html" class="active"><strong aria-hidden="true">2.8.</strong> Accounts: deposit and withdraw tokens</a></li><li class="chapter-item expanded "><a href="../tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="../tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending tokens from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="../setup_wasp.html"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">ISCP Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                            </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="exploring-iota-smart-contracts"><a class="header" href="#exploring-iota-smart-contracts">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="07.html">Invoking smart contracts. Calling a view</a></p>
+<p>For a general description of the ISCP account system see
+<a href="iscp_accounts.html">ISCP accounts. Controlling token balances</a>.</p>
+<h2 id="accounts-deposit-and-withdraw-tokens"><a class="header" href="#accounts-deposit-and-withdraw-tokens">Accounts: deposit and withdraw tokens</a></h2>
+<p>Multiple chains in ISCP adds another dimension to the ledger: smart contracts
+can exchange assets between themselves on different chains as well as with
+addresses on the UTXO Ledger. We will skip explaining the whole picture for time
+being and will concentrate on one specific use case.</p>
+<p>Let's say we have a wallet, we have private key (the address) and some tokens on
+the address. The use case is about sending tokens to and receiving tokens from a
+smart contract on a chain.</p>
+<p>Here we explore the concept of <code>on-chain account</code> or just <code>account</code>. On the UTXO
+Ledger the private key is represented by the address (the hash of the public
+key). That address holds balances of colored tokens. Those tokens are
+&quot;controlled&quot; by the private key.</p>
+<p>In ISCP we extend the concept of <em>address</em> with the concept of <code>account</code>. An 
+<code>account</code> contains colored tokens just like an <code>address</code>. The <code>account</code> is
+located on some chain, and it is controlled by the same private key as the 
+associated address. So, an address can control tokens on the UTXO Ledger 
+(Level-1, or <code>L1</code>) and on each chain (Level-2, or <code>L2</code>).</p>
+<p>The chain essentially is a custodian of the tokens deposited in its <code>accounts</code>.</p>
+<p>The following test demonstrates how a wallet can deposit tokens in a chain 
+account and then withdraw them back.</p>
+<pre><code class="language-go">func TestTutorial5(t *testing.T) {
+    env := solo.New(t, false, false)
+    chain := env.NewChain(nil, &quot;ex5&quot;)
+
+    // create a wallet with solo.Saldo iotas.
+    // the wallet has address and it is globally identified
+    // through a universal identifier: the agent ID
+    userWallet, userAddress := env.NewKeyPairWithFunds()
+    userAgentID := coretypes.NewAgentID(userAddress, 0)
+    
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo) // solo.Saldo on address
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)  // empty on-chain
+    
+    t.Logf(&quot;Address of the userWallet is: %s&quot;, userAddress)
+    numIotas := env.GetAddressBalance(userAddress, ledgerstate.ColorIOTA)
+    t.Logf(&quot;balance of the userWallet is: %d iota&quot;, numIotas)
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo)
+    
+    // send 42 iotas from wallet to own account on-chain, controlled by the same wallet
+    req := solo.NewCallParams(accounts.Name, accounts.FuncDeposit)
+    req.WithIotas(42)
+    _, err := chain.PostRequestSync(req, userWallet)
+    require.NoError(t, err)
+    
+    // check address balance: must be 42 iotas less
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo-42)
+    // check the on-chain account. Must contain 42 iotas
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 42)
+    
+    // withdraw all iotas
+    req = solo.NewCallParams(accounts.Name, accounts.FuncWithdraw)
+    req.WithIotas(1)
+    _, err = chain.PostRequestSync(req, userWallet)
+    require.NoError(t, err)
+    
+    // we are back to initial situation: IOTA is fee-less!
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo-1)
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0) // empty
+}
+</code></pre>
+<p>The example above creates a chain, then creates a wallet with solo.Saldo iotas and
+sends (deposits) 42 iotas to the corresponding on-chain account by posting
+a <code>deposit</code> request to the <code>accounts</code> core contract on that chain. That account
+will now contain 42 iotas. The address on the UTXO Ledger will contain 42 iotas
+less, of course.</p>
+<p>In the next step the same wallet (<code>userWallet</code>) will withdraw all 42 iotas back
+to the address by sending a <code>withdraw</code> request to the <code>accounts</code> contract on 
+the same chain.</p>
+<p>If the same request would be posted from another user wallet (another private
+key), the <code>withdraw</code> request would fail. Try it! Only the owner of the address
+can move those funds from the on-chain account.</p>
+<p>Next: <a href="09.html">Sending tokens to the smart contract</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../tutorial/07.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../tutorial/09.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../tutorial/07.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../tutorial/09.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+                
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>

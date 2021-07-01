@@ -1,0 +1,263 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Setup a private ISCP Cluster - ISCP Documentation</title>
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the UTXO Ledger</a></li><li class="chapter-item expanded "><a href="tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain; Core contracts</a></li><li class="chapter-item expanded "><a href="tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running a Rust smart contract</a></li><li class="chapter-item expanded "><a href="tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contracts. Sending a request</a></li><li class="chapter-item expanded "><a href="tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Invoking smart contracts. Calling a view</a></li><li class="chapter-item expanded "><a href="tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Accounts: deposit and withdraw tokens</a></li><li class="chapter-item expanded "><a href="tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending tokens from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="setup_wasp.html" class="active"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">ISCP Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                            </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="setup-a-private-iscp-cluster"><a class="header" href="#setup-a-private-iscp-cluster">Setup a private ISCP Cluster</a></h1>
+<h1 id="wasp-cluster"><a class="header" href="#wasp-cluster">wasp-cluster</a></h1>
+<p><code>wasp-cluster</code> is a tool that allows to easily run a cluster of Wasp nodes
+in a single host, to experiment with smart contracts in a controlled environment.</p>
+<p><strong>Note:</strong> <code>wasp-cluster</code> is intended for <strong>testing purposes</strong>, and is <em>not</em>
+suitable for running a cluster in a production environment.</p>
+<h2 id="before"><a class="header" href="#before">Before</a></h2>
+<p>Make sure you have all needed binaries compiled and installed in the system
+path:</p>
+<ul>
+<li><code>wasp</code> (Wasp server)</li>
+<li><code>wasp-cli</code> (CLI client for the Wasp node)</li>
+<li><code>wasp-cluster</code> (this tool)</li>
+</ul>
+<p>You can find instructions in
+the <a href="../../../readme.html#Prerequisites">main README file</a>.</p>
+<h2 id="initialize-the-cluster-configuration"><a class="header" href="#initialize-the-cluster-configuration">Initialize the cluster configuration</a></h2>
+<pre><code>wasp-cluster init my-cluster
+</code></pre>
+<p>This will create a directory named <code>my-cluster</code>, containing the cluster
+configuration file (<code>cluster.json</code>) and one subdirectory for each node.</p>
+<pre><code>my-cluster/
+├── cluster.json
+├── wasp0
+│   └── config.json
+├── wasp1
+│   └── config.json
+├── wasp2
+│   └── config.json
+└── wasp3
+    └── config.json
+</code></pre>
+<p>By default the cluster contains 4 Wasp nodes. You can change this with the
+<code>-n</code> parameter. E.g.: <code>wasp-cluster init my-cluster -n 2</code>.</p>
+<p>If you need to change the default configuration of the nodes, you can do so now,
+by editing the <code>config.json</code> files.</p>
+<p>Note: by default <code>wasp-cluster</code> configures all nodes to store the database in
+main memory: all data will be lost when the cluster is stopped (remember that
+this tool is used primarily for testing). If you need a persistent database,
+change the <code>inMemory</code> setting in all <code>config.json</code> files.</p>
+<h2 id="start-the-cluster"><a class="header" href="#start-the-cluster">Start the cluster</a></h2>
+<pre><code>cd my-cluster
+wasp-cluster start
+</code></pre>
+<p>(Alternatively: <code>wasp-cluster start my-cluster</code>.)</p>
+<p>When done using the cluster, press <code>Ctrl-C</code> to stop it.</p>
+<h2 id="connecting-to-an-existing-goshimmer-network"><a class="header" href="#connecting-to-an-existing-goshimmer-network">Connecting to an existing Goshimmer network</a></h2>
+<p>By default, <code>wasp-cluster</code> provides a mock Goshimmer node to operate a
+simulated ledger without the need for consensus. This is good
+for quick tests, but is far from how the ledger works in a production
+environment.</p>
+<p>To connect the Wasp cluster to a more realistic environment (e.g. to be able to
+persist the ledger), you can use the <code>docker-network</code> tool available
+in the Goshimmer repository in order to start a cluster of Goshimmer nodes.</p>
+<p>Example steps:</p>
+<ol>
+<li>Start a Goshimmer network of 2 nodes:</li>
+</ol>
+<pre><code>cd &lt;goshimmer&gt;/tools/docker-network
+./run.sh 2 0
+</code></pre>
+<ol start="2">
+<li>In another console, initialize a cluster of 4 Wasp nodes (<code>-n 4</code>) with no
+mock Goshimmer node (<code>-g</code>).</li>
+</ol>
+<pre><code>wasp-cluster init my-cluster -n 4 -g
+</code></pre>
+<ol start="3">
+<li>Start the Wasp cluster:</li>
+</ol>
+<pre><code>$ cd my-cluster
+$ wasp-cluster start
+</code></pre>
+<h2 id="running-a-disposable-cluster"><a class="header" href="#running-a-disposable-cluster">Running a disposable cluster</a></h2>
+<p>If you just need to do a quick test, you can run a disposable cluster of nodes
+with the default configuration with the command:</p>
+<pre><code>wasp-cluster start -d
+</code></pre>
+<p>No need to call <code>init</code> first; this command will automatically initialize the
+cluster configuration in a temporary directory, which will be removed when the
+cluster is stopped.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="tutorial/11.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="tutorial/11.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                            </nav>
+
+        </div>
+
+        
+        
+                
+        
+        
+                <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>

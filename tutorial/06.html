@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Invoking smart contracts. Sending a request - ISCP Documentation</title>
+        
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+            </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="../tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the UTXO Ledger</a></li><li class="chapter-item expanded "><a href="../tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain; Core contracts</a></li><li class="chapter-item expanded "><a href="../tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running a Rust smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/06.html" class="active"><strong aria-hidden="true">2.6.</strong> Invoking smart contracts. Sending a request</a></li><li class="chapter-item expanded "><a href="../tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Invoking smart contracts. Calling a view</a></li><li class="chapter-item expanded "><a href="../tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Accounts: deposit and withdraw tokens</a></li><li class="chapter-item expanded "><a href="../tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="../tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending tokens from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="../setup_wasp.html"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                                                <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                                            </div>
+
+                    <h1 class="menu-title">ISCP Documentation</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                                            </div>
+                </div>
+
+                                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="exploring-iota-smart-contracts"><a class="header" href="#exploring-iota-smart-contracts">Exploring IOTA Smart Contracts</a></h1>
+<p>Previous: <a href="05.html">Structure of the smart contract</a></p>
+<p>(see also <a href="invoking.html">General scheme of invoking an entry point</a>)</p>
+<h2 id="invoking-smart-contracts-sending-a-request"><a class="header" href="#invoking-smart-contracts-sending-a-request">Invoking smart contracts. Sending a request</a></h2>
+<p>The statements</p>
+<pre><code class="language-go">req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;, &quot;paramString&quot;, &quot;Hello, world!&quot;)
+req.WithIotas(1)
+_, err = chain.PostRequestSync(req, nil)
+</code></pre>
+<p>in the example <code>TestTutorial3</code> invoke the <code>storeString</code> entry point of the
+<code>example1</code> smart contract by posting it as a request. The parameter
+named <code>paramString</code> is passed with the string value &quot;Hello, world!&quot;. The <em>Solo</em>
+test code itself is separate from the chain where the smart contract is 
+invoked, and is not executed &quot;on-chain&quot;.</p>
+<p><code>NewCallParams</code> creates a call object named <code>req</code> which wraps all call
+parameters into a single object. This is syntactic sugar just for convenience.
+In this case the call object only wraps the target smart contract name, target 
+entry point name, and one named parameter <code>paramString</code>. In other cases it could
+contain many parameters.</p>
+<p><code>WithIotas</code> transfers a single iota with the request. All on-ledger requests 
+are implemented as transfer requests with additional data, and therefore we 
+need to transfer at least a single token for the request to be valid.</p>
+<p><code>PostRequestSync</code> sends the request to the chain. Let’s describe in detail what
+is going on here.</p>
+<p><img src="send_request.png" alt="" /></p>
+<p>The diagram above depicts the generic process of posting a request to the smart
+contract. The same picture is valid for the <em>Solo</em> environment and for any other
+requester which sends a request to the smart contract, for example the ISCP 
+wallet or another chain.</p>
+<p>Posting the request always consists of the steps below. Note that in Solo all 7
+steps are carried out by the single call to <code>PostRequestSync</code>.</p>
+<ol>
+<li>Creating the smart contract transaction which wraps the request with metadata
+and moves tokens. Each request transaction is a value transaction, it always
+moves at least one token. Therefore, each request transaction must be signed
+by the private key of the owner of the tokens: the requester. That securely
+identifies each requester in ISCP. In Solo the transaction is signed by the
+private key provided in the second parameter of the <code>PostRequestSync</code>
+call (see below);</li>
+<li>Posting the request transaction to the Tangle and confirming it. In <em>Solo</em> it
+is just adding the transaction to the <code>UTXODB ledger</code>, the emulated UTXO
+Ledger, so it is confirmed immediately and synchronously. The confirmed
+transaction on the ledger becomes part of the backlog of requests to the
+chain. In the real UTXO Ledger the sender would have to wait until the ledger
+confirms the transaction;</li>
+<li>The chain picks the request from the backlog and runs the request on the VM;</li>
+<li>The VM calls the target entry point of the smart contract program. The
+program updates the state;</li>
+<li>The VM produces a state update transaction (anchor);</li>
+<li>The chain signs the transaction with its private key. In the <em>Solo</em>
+environment it is the <code>ChainSigScheme</code> property of the chain. In the real 
+Wasp environment it is the threshold signature of the committee;</li>
+<li>The chain posts the resulting transaction to the Tangle and once it confirms 
+it solidifies the corresponding state. In the <em>Solo</em> environment it adds 
+the transaction to the UTXODB ledger.</li>
+</ol>
+<p>The following lines in the log corresponds to the step 7:</p>
+<pre><code>54:43.809	INFO	TestTutorial3.ex3	vmcontext/runreq.go:311	eventlog -&gt; '[req] [0]CHvU6BUDgt9MZJTxsYMZ1p1veg591mvwKGQBJd2KYdaB: Ok'
+54:43.809	INFO	TestTutorial3	solo/clock.go:35	AdvanceClockBy: logical clock advanced by 2ns
+54:43.809	INFO	TestTutorial3.ex3.m	mempool/mempool.go:119	OUT MEMPOOL [0]CHvU6BUDgt9MZJTxsYMZ1p1veg591mvwKGQBJd2KYdaB
+54:43.809	INFO	TestTutorial3.ex3	solo/run.go:86	state transition #2 --&gt; #3. Requests in the block: 1. Outputs: 1
+</code></pre>
+<p>The chain adds a record about successfully processed request
+<code>[0]CHvU6BUDgt9MZJTxsYMZ1p1veg591mvwKGQBJd2KYdaB</code> to the immutable on-chain log.</p>
+<p>The statement <code>_, err = chain.PostRequestSync(req, nil)</code> in the Solo test uses <code>nil</code>
+for the default signature scheme of the requester. The <code>OriginatorSigScheme</code>,
+the one which deployed the chain, is used as the default requester. In the
+<em>Solo</em> environment you can create other identities for requesters (“wallets”)
+with <code>NewKeyPairWithFunds</code>.</p>
+<p>Next: <a href="07.html">Invoking smart contracts. Calling a view</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                                                    <a rel="prev" href="../tutorial/05.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                                                    <a rel="next" href="../tutorial/07.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                                    <a rel="prev" href="../tutorial/05.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                                    <a rel="next" href="../tutorial/07.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                            </nav>
+
+        </div>
+
+        
+        
+                
+        
+        
+                <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        
+    </body>
+</html>
